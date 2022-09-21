@@ -1,0 +1,34 @@
+<html>
+<head>
+  <title> Sign Up Page </title>
+  <link rel="stylesheet" href="{{url_for('static',filename='css/signup_style.css')}}">
+</head>
+<style>
+
+body{
+  font-family : sans-serif;
+  background-image : url("static/images/signup.jpg");
+  background-size : cover;
+  background-position : center;
+}
+
+</style>
+<body>
+  <div class="Sign-up-form">
+    <img src="{{url_for('static',filename='images/register_icon.png')}}" alt="MSM_logo" width="120" height="120">
+    <h1> Sign Up Now </h1>
+    <form name="signup fom" action="/register" method="post">
+      <input type="Full_name" name ="Full_name"class="input-box" placeholder="Your Full name" required>
+      <input type="Email"  name="Email" class="input-box" placeholder="Your Email" required>
+      <input type="Password" name="Password" class="input-box" placeholder="Password" required>
+      <button type="submit" class="signup-btn">Sign up</button>
+      <br>
+      <br>
+      <hr>
+      <p class="or">OR</p>
+      <p>Do you have an account ? <a href="{{ url_for('login') }}">Sign in</a></p>
+    </form>
+  </div>
+</body>
+
+</html>

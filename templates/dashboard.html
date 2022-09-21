@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+    <div class="heading">
+        <h1>Create Tasks</h1>
+    </div>
+    <div class="form">
+        <form method = "POST" enctype = "multipart/form-data" action = "/dashboard">
+            <input type="text" name="task">
+            <button><a href = {{ url_for('dashboard') }}><i class="fa-solid fa-check"></i></a></button>
+            <button><i class="fa-solid fa-ban"></i></button>
+        </form>
+    </div>
+    <div class="progression">
+    <body>
+        {% block body %}
+        <h1>On Progress</h1>
+        <p>{{ task }} </p>
+        <button><a href = {{ url_for('dashboard') }}><i class="fa-solid fa-check"></i></a></button>
+        <button><i class="fa-solid fa-ban"></i></button>
+        {% endblock %}
+    </body>
+    </div>
+    <div class="Completion">
+        <h1>Completed Tasks</h1>
+        <!-- <p></p> -->
+    </div>
+</div>
+
+{% endblock %}
+
+<h5>Create Task<h5>
