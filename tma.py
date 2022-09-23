@@ -16,6 +16,20 @@ progress = mongo.db.on_progress
 completed = mongo.db.completed
 retrieveall = mongo.db.retrieveall
 
+events = [
+    {
+        'title' : 'TestEvent',
+        'start' : '2022-09-22',
+        'end' : '',
+        'url' : 'https://youtube.com'
+    },
+    {
+        'title' : 'Another TestEvent',
+        'start' : '2022-09-24',
+        'end' : '2022-09-26',
+        'url' : 'https://google.com'
+    }
+]
 
 @app.route("/")
 def homepage():
@@ -137,12 +151,26 @@ def clearall():
 
 @app.route("/calendar", methods=["GET", "POST"])
 def calendar():
-    return render_template("calendar.html")
+    return render_template("calendar.html",events = events)
 
 
 @app.route("/add", methods=["GET", "POST"])
 def add():
-    return "event page"
+    if request.method == "POST":
+        title = request.form['title']
+        start = request.form['start']
+        end = request.form['end']
+        url = request.form['url']
+        if end =='':
+            end = start
+        events.append({
+            'title' : title,
+            'start' : start,
+            'end' : end,
+            'url' : url
+        },
+        )
+    return render_template('add.html')
 
 
 if __name__ == "__main__":
