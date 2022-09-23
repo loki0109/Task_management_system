@@ -5,14 +5,32 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+        integrity="sha384-kyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://kit.font-awesome.com/16fda319fc.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+        integrity="sha384-kyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth'
+            });
+            calendar.render();
+        });
+    </script>
 </head>
-
 <style>
-    body{
+    body {
         margin: 0;
         background-color: rgb(91, 86, 86);
     }
+
     nav {
         display: flex;
         flex-direction: row;
@@ -33,11 +51,11 @@
     .flex-2 p {
         margin-right: 1rem;
     }
-    a{
+
+    a {
         color: rgb(9, 49, 83);
         font-size: 1.5rem;
     }
-
 </style>
 
 <body>
@@ -46,6 +64,8 @@
         <div class="flex-2">
             <p> <a href=""><i class="fa-solid fa-user"></i></a> </p>
             <p> <a href=""><i class="fa-solid fa-gear"></i></a> </p>
+            <p> <a href="/calendar"><i class="fa-regular fa-calendar"></i></a> </p>
+            <p> <a href="{{url_for('retrieve') }}"><i class="fa-solid fa-arrow-up-from-bracket"></i></a></p>
             <p> <a href=""><i class="fa-solid fa-right-from-bracket"></i></a> </p>
         </div>
     </nav>

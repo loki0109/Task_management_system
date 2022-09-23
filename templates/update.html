@@ -1,0 +1,8 @@
+{% extends 'base.html' %} {% block content %}
+{% for emp in emps %}
+<form method="POST" enctype="multipart/form-data" action="">
+    Enter the Task to be updated : <input type="text" name="task" value="{{ emp[" on_progress" ]}}">
+    <button><i class="fa-solid fa-ban">submit</i></button>
+</form>
+{% endfor %}
+{% endblock %}
