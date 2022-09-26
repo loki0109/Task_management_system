@@ -133,7 +133,6 @@ def update(id):
 def retrieve():
     r_task = list(retrieveall.find(
         {"email": session["email"]}, {"retrieved_tasks": 1}))
-    print(r_task)
     return render_template("retrieveall.html", task=r_task)
 
 
@@ -141,11 +140,8 @@ def retrieve():
 def profile():
 
     details = list(db.find({"email": session["email"]}, {}))
-    print(details)
-    print(details[0]['name'])
     c_task = completed.count_documents(
         {'email': session['email']})
-    print(c_task)
     p_task = progress.count_documents(
         {'email': session['email']})
     percent = int((c_task/(p_task + c_task))*100)
@@ -158,9 +154,7 @@ def profile():
 def delete(id):
     delete_task = list(progress.find(
         {"_id": ObjectId(id)}, {"on_progress": 1}))
-    print(delete_task)
     task = delete_task[0]["on_progress"]
-    print(task)
     progress.delete_one({"_id": ObjectId(id)})
     return redirect(url_for('dashboard'))
 
@@ -168,7 +162,6 @@ def delete(id):
 @app.route("/clearall", methods=["GET", "POST"])
 def clearall():
     completed.delete_many({})
-
     return redirect(url_for('dashboard'))
 
 
@@ -207,7 +200,6 @@ def remove():
 @app.route("/signout", methods=["GET", "POST"])
 def signout():
     session['email'] = None
-
     return redirect(url_for('homepage'))
 
 
