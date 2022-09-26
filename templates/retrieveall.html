@@ -1,17 +1,14 @@
 {% extends 'base.html' %} {% block content %}
 <html>
-
-<head></head>
-
-<body>
-    {% block body %}
-    <h1>Retrieved tasks</h1>
-    {% for t in task %}
-    <p>{{ t['retrieved_tasks']}} </p>
-    {% endfor %}
-    {% endblock %}
-    <p></p>
-</body>
-
+    <head></head>
+        <body>
+            {% block body %}
+            <h1>Retrieved tasks</h1>
+            {% for t in task %}
+            <p>{{ t['retrieved_tasks']}} </p>
+            {% endfor %}
+            {% endblock %}
+        <p></p>
+    </body>
 </html>
 {% endblock %}

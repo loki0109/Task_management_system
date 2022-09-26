@@ -18,18 +18,19 @@ retrieveall = mongo.db.retrieveall
 
 events = [
     {
-        'title' : 'TestEvent',
-        'start' : '2022-09-22',
-        'end' : '',
-        'url' : 'https://youtube.com'
+        'title': 'TestEvent',
+        'start': '2022-09-22',
+        'end': '',
+        'url': 'https://youtube.com'
     },
     {
-        'title' : 'Another TestEvent',
-        'start' : '2022-09-24',
-        'end' : '2022-09-26',
-        'url' : 'https://google.com'
+        'title': 'Another TestEvent',
+        'start': '2022-09-24',
+        'end': '2022-09-26',
+        'url': 'https://google.com'
     }
 ]
+
 
 @app.route("/")
 def homepage():
@@ -87,6 +88,7 @@ def dashboard():
             'email': session['email']
         }
         retrieveall.insert_one(create_rtask)
+
         c_task = completed.find({'email': session['email']})
         return render_template('dashboard.html', comp_v=c_task, task=progress.find({"email": session['email']}))
     return render_template("dashboard.html", comp_v=completed.find({'email': session['email']}), task=progress.find({"email": session['email']}))
@@ -101,6 +103,7 @@ def progr(id):
         completed.insert_one(
             {"completed": s[0]['on_progress'], "email": session['email']})
         comp_task = list(completed.find({}, {"completed": 1}))
+
         progress.delete_one({"_id": ObjectId(id)})
         return render_template("dashboard.html", comp_v=comp_task, task=progress.find({"email": session['email']}))
     return render_template("dashboard.html", comp_v=comp_task, task=progress.find({"email": session['email']}))
@@ -115,12 +118,14 @@ def update(id):
         for i in updata:
             emp.append(i)
             print(emp)
+
     if request.method == "POST":
         task = request.form.get("task")
         progress.update_one({"_id": ObjectId(id)}, {
                             "$set": {'on_progress': task}})
         comp_task = list(completed.find({}, {"completed": 1}))
         return render_template('dashboard.html', comp_v=comp_task, task=progress.find({"email": session['email']}))
+
     return render_template("update.html", emps=emp)
 
 
@@ -130,6 +135,23 @@ def retrieve():
         {"email": session["email"]}, {"retrieved_tasks": 1}))
     print(r_task)
     return render_template("retrieveall.html", task=r_task)
+
+
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
+
+    details = list(db.find({"email": session["email"]}, {}))
+    print(details)
+    print(details[0]['name'])
+    c_task = completed.count_documents(
+        {'email': session['email']})
+    print(c_task)
+    p_task = progress.count_documents(
+        {'email': session['email']})
+    percent = int((c_task/(p_task + c_task))*100)
+    # except ZeroDivisionError:
+    # percent = 70
+    return render_template("profile.html", percent=percent, details=details, c_task=c_task, p_task=p_task)
 
 
 @app.route("/delete/<id>", methods=["GET", "POST"])
@@ -146,12 +168,13 @@ def delete(id):
 @app.route("/clearall", methods=["GET", "POST"])
 def clearall():
     completed.delete_many({})
+
     return redirect(url_for('dashboard'))
 
 
 @app.route("/calendar", methods=["GET", "POST"])
 def calendar():
-    return render_template("calendar.html",events = events)
+    return render_template("calendar.html", events=events)
 
 
 @app.route("/add", methods=["GET", "POST"])
@@ -161,16 +184,31 @@ def add():
         start = request.form['start']
         end = request.form['end']
         url = request.form['url']
-        if end =='':
+        if end == '':
             end = start
         events.append({
-            'title' : title,
-            'start' : start,
-            'end' : end,
-            'url' : url
+            'title': title,
+            'start': start,
+            'end': end,
+            'url': url
         },
         )
     return render_template('add.html')
+
+
+@app.route("/remove", methods=["GET", "POST"])
+def remove():
+    progress.delete_one({"email": session["email"]})
+    completed.delete_one({"email": session["email"]})
+    db.delete_one({"email": session["email"]})
+    return redirect(url_for('homepage'))
+
+
+@app.route("/signout", methods=["GET", "POST"])
+def signout():
+    session['email'] = None
+
+    return redirect(url_for('homepage'))
 
 
 if __name__ == "__main__":

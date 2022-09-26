@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 </head>
+
 <style>
     body {
         margin: 0;
@@ -49,11 +51,11 @@
     <nav>
         <div class="flex-1"></div>
         <div class="flex-2">
-            <p> <a href=""><i class="fa-solid fa-user"></i></a> </p>
+            <p> <a href="{{url_for('profile')}}"><i class="fa-solid fa-user"></i></a> </p>
             <p> <a href=""><i class="fa-solid fa-gear"></i></a> </p>
             <p> <a href="/calendar"><i class="fa-regular fa-calendar"></i></a> </p>
             <p> <a href="{{url_for('retrieve') }}"><i class="fa-solid fa-arrow-up-from-bracket"></i></a></p>
-            <p> <a href=""><i class="fa-solid fa-right-from-bracket"></i></a> </p>
+            <p> <a href="{{url_for('signout')}}"><i class="fa-solid fa-right-from-bracket"></i></a> </p>
         </div>
     </nav>
     <div id="message" class="bg-dark">

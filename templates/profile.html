@@ -1,0 +1,155 @@
+{% extends 'base.html' %} {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/progress.css') }}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<style>
+    #maindiv {
+        margin-left: 30px;
+    }
+
+    #imgdiv {
+        display: flex;
+    }
+
+    #graphdiv {
+        display: flex;
+    }
+
+    #butdiv {
+        display: flex;
+        flex-direction: column;
+        margin-left: 40px;
+    }
+
+    #bdiv {
+        display: flex;
+        margin-right: 20px;
+    }
+
+    #profdiv {
+        display: flex;
+    }
+
+    #progdiv {
+        display: flex;
+    }
+
+    #gdiv {
+        float: left;
+    }
+</style>
+
+<br>
+<br>
+<div id="maindiv">
+    <div id="profdiv">
+        <h1>My Profile </h1>
+        <img src='https://cdn-icons-png.flaticon.com/512/1077/1077063.png' style="width: 20px;
+        height: 20px; position: relative; top:25px;left:10px ">
+
+    </div>
+    <div class="row">
+        <div id="imgdiv">
+            <div class="col-lg-2">
+                <img class="profile-image" src="{{url_for('static',filename='images/pro.jfif')}}" alt="profile-pic">
+            </div>
+            <div id="butdiv">
+                <div style="padding: 0 2%;" class="col-lg-7">
+                    <h1>
+                        {{ details[0]['name'] }}
+                    </h1>
+                    <p><em>
+                            {{ details[0]['email'] }}
+                        </em> </p>
+                </div>
+                <br>
+
+                <br><br>
+                <div id="bdiv"><button
+                        style="margin-right: 2%;height:35px;width:100px;background-color:blue;color:white"
+                        data-toggle="modal" data-target="#changePassword" aria-haspopup="true"
+                        class="btn btn-sm btn-primary">Change password</button>
+                    <button style="height:35px;background-color:red;color:white" class="btn btn-sm btn-danger"
+                        data-toggle="modal" data-target="#deleteAccount" aria-haspopup="true"><a href={{
+                            url_for('remove') }}>Delete account</a></button>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="container">
+    <div class="modal fade" id="changePassword">
+        <div class="modal-dialog" style="color: black;">
+            <div class="modal-content">
+                
+                <div class="modal-header text-center">
+                    <h3 class="modal-title text-center">Change Password</h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div> -->
+        <!-- <div class="container">
+    <div class="modal fade" id="deleteAccount">
+        <div class="modal-dialog" style="color: black;">
+            <div class="modal-content">
+                
+                <div class="modal-header text-center">
+                    <h3 class="modal-title text-center">Account deletion</h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div> -->
+        <br><br>
+        <div id="progdiv">
+            <h1>Progress</h1><img
+                src="https://image.shutterstock.com/image-illustration/business-success-concept-rising-red-260nw-1662810316.jpg"
+                style="width: 20px;
+    height: 20px; position: relative; top:25px;left:10px ">
+        </div>
+        <br>
+        <!-- <h1>Hello</h1> -->
+        <div class="row">
+            <div class="col-lg-3">
+                <p style="font-size: larger;">Completed tasks</p>
+                <h1>{{ c_task }}</h1>
+                <p style="font-size: larger;">Tasks to be completed</p>
+                <h1>{{ p_task }}</h1>
+            </div>
+            <div class="col-lg-4" id="graphdiv">
+                <br>
+                <div id="gdiv" class="progress" data-percentage="{{ percent }}">
+                    <span class="progress-left">
+                        <span class="progress-bar"></span>
+                    </span>
+                    <span class="progress-right">
+                        <span class="progress-bar"></span>
+                    </span>
+                    <div class="progress-value">
+                        <div>
+                            {{ percent }}%<br>
+                            <span>completed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var password = document.getElementById("newpasswd"),
+            confirm_password = document.getElementById("confirm-passwd");
+        function validatePassword() {
+            if (password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords don't Match");
+            } else {
+                confirm_password.setCustomValidity("");
+            }
+        }
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+    </script>
+    {% endblock %}
