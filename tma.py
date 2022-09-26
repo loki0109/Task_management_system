@@ -16,20 +16,21 @@ progress = mongo.db.on_progress
 completed = mongo.db.completed
 retrieveall = mongo.db.retrieveall
 
-events = [
-    {
-        'title': 'TestEvent',
-        'start': '2022-09-22',
-        'end': '',
-        'url': 'https://youtube.com'
-    },
-    {
-        'title': 'Another TestEvent',
-        'start': '2022-09-24',
-        'end': '2022-09-26',
-        'url': 'https://google.com'
-    }
-]
+events = []
+# events = [
+#     {
+#         'title': 'TestEvent',
+#         'start': '2022-09-22',
+#         'end': '',
+#         'url': 'https://youtube.com'
+#     },
+#     {
+#         'title': 'Another TestEvent',
+#         'start': '2022-09-24',
+#         'end': '2022-09-26',
+#         'url': 'https://google.com'
+#     }
+# ]
 
 
 @app.route("/")
@@ -88,10 +89,10 @@ def dashboard():
             'email': session['email']
         }
         retrieveall.insert_one(create_rtask)
-
+        sugg_word = ["finish","coffee","hi","the","hello","laptop","buy","lokesh","vignesh"]
         c_task = completed.find({'email': session['email']})
-        return render_template('dashboard.html', comp_v=c_task, task=progress.find({"email": session['email']}))
-    return render_template("dashboard.html", comp_v=completed.find({'email': session['email']}), task=progress.find({"email": session['email']}))
+        return render_template('dashboard.html',sugg_word = sugg_word,comp_v=c_task, task=progress.find({"email": session['email']}))
+    return render_template("dashboard.html",comp_v=completed.find({'email': session['email']}), task=progress.find({"email": session['email']}))
 
 
 @app.route("/on_progress/<id>", methods=["GET", "POST"])

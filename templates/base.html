@@ -12,6 +12,13 @@
     <script src="https://kit.font-awesome.com/16fda319fc.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <!-- <p>This is for auto-complete words</p> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  
+    </script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">  
+    </script>  
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+    rel="stylesheet" type="text/css" />  
 </head>
 
 <style>
@@ -44,6 +51,13 @@
     a {
         color: rgb(9, 49, 83);
         font-size: 1.5rem;
+        text-decoration:none;
+    }
+    h3{
+        color:orange
+    }
+    .comple{
+        color:rgb(82, 231, 82)
     }
 </style>
 
@@ -52,7 +66,6 @@
         <div class="flex-1"></div>
         <div class="flex-2">
             <p> <a href="{{url_for('profile')}}"><i class="fa-solid fa-user"></i></a> </p>
-            <p> <a href=""><i class="fa-solid fa-gear"></i></a> </p>
             <p> <a href="/calendar"><i class="fa-regular fa-calendar"></i></a> </p>
             <p> <a href="{{url_for('retrieve') }}"><i class="fa-solid fa-arrow-up-from-bracket"></i></a></p>
             <p> <a href="{{url_for('signout')}}"><i class="fa-solid fa-right-from-bracket"></i></a> </p>

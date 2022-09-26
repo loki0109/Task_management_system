@@ -1,31 +1,52 @@
 {% extends 'base.html' %} {% block content %}
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+    </script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet"
+        type="text/css" />
+</head>
 <div class="container">
     <div class="heading">
         <h1>Create Tasks</h1>
     </div>
     <div class="form">
-        <form method="POST" enctype="multipart/form-data" action="{{ url_for('dashboard') }}">
-            <input type="text" name="task">
-            <button><i class="fa-solid fa-ban">submit</i></button>
+        <form method="POST" enctype="multipart/form-data" autocomplete="on" action="{{ url_for('dashboard') }}">
+            <input type="text" name="task" id="tags">
+            <script>
+                $(function () {
+                    var availableTags = [
+                        {% for i in sugg_word %}
+                            "{{i}}",
+                        {% endfor %}
+                    ];
+                    $("#tags").autocomplete({
+                    source: availableTags
+                });
+  });
+            </script>
+            <button><i class="fa-solid">submit</i></button>
         </form>
     </div>
     <div class="progression">
+
         <body>
             {% block body %}
             <h1>On Progress</h1>
             {% for t in task %}
-            <p>{{ t['on_progress']}} </p>
-            <button><a href={{ url_for('progr' ,id=t['_id']) }}><i class="fa-solid fa-ban">submit</i></a></button>
-            <button><i class="fa-solid fa-ban"></i></button>
-            <button><a href={{ url_for('update' ,id=t['_id']) }}><i class="fa-solid fa-ban">Update</i></a></button>
-            <button><a href={{ url_for('delete' ,id=t['_id']) }}><i class="fa-solid fa-ban">Delete</i></a></button>
+            <h3>{{ t['on_progress']}} </h3>
+            <button><a href={{ url_for('progr' ,id=t['_id']) }}><i class="fa-solid fa-check"></i>Submit</a></button>
+            <button><a href={{ url_for('update' ,id=t['_id']) }}><i class="fa-solid fa-pen"></i>Update</a></button>
+            <button><a href={{ url_for('delete' ,id=t['_id']) }}><i class="fa-solid fa-trash"></i>Delete</a></button>
             {% endfor %}
             <h1>Completed Tasks</h1>
             {% for c in comp_v %}
-            <p>{{ c['completed']}} </p>
+            <h3 class = "comple">{{ c['completed']}} </h3>
             {% endfor %}
             {% endblock %}
-            <button><a href={{ url_for('clearall' )}}><i class="fa-solid fa-ban">Clear All</i></a></button>
+            <button><a href={{ url_for('clearall' )}}><i class="fa-solid fa-eraser"></i>Clear all</a></button>
         </body>
     </div>
     <div class="Completion">
